@@ -4,7 +4,5 @@ Data Structures Project 6: Student Course Registration with Prerequisites and Se
 Group Members:
 
 Zeenat M.Hanif
-
 Barira Fatima 
-
 Mariya Kamran
