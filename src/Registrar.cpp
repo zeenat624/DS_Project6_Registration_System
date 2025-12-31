@@ -2,62 +2,72 @@
 #include <iostream>
 using namespace std;
 
-Registrar::Registrar() : section(3) {
-    studentCount = 5;
-
+Registrar::Registrar() : section(2) {
     students[0] = Student(1023, "Zeenat");
     students[1] = Student(1024, "Kashaf");
     students[2] = Student(1025, "Meryam");
-    students[3] = Student(1026, "Amna");
-    students[4] = Student(1027, "Bisma");
 
     students[0].addCompletedCourse("PF");
+    students[0].addCompletedCourse("OOP");
     students[1].addCompletedCourse("PF");
-    students[1].addCompletedCourse("OOP");
-    students[2].addCompletedCourse("PF");
+    students[1].addCompletedCourse("PF");
 }
 
-int Registrar::findStudent(int id) {
-    for(int i = 0; i < studentCount; i++) {
-        if(students[i].getId() == id)
-            return i;
-    }
-    return -1;
-}
-
-void Registrar::menu() {
-    int id, choice;
-
+void Registrar::studentMenu() {
+    int id;
     cout << "Enter Student ID: ";
     cin >> id;
 
-    int index = findStudent(id);
+    int index = -1;
+    for(int i=0;i<3;i++) {
+        if(students[i].getId() == id)
+            index = i;
+    }
+
     if(index == -1) {
-        cout << "Student not found!" << endl;
+        cout << " Student not found."<<endl;
         return;
     }
 
     cout << "Welcome " << students[index].getName() << endl;
+    cout << "1. Register Course "<<endl;
+    cout << "2. Drop Course"<<endl;
+    cout<<" Enter your choice"<<endl;
 
+    int choice;
+    cin >> choice;
 
-        cout << "1. Register Course"<<endl;
-        cout << "2. Drop Course";
-        cout << "3. View Completed Courses"<<endl;
-        cout << "0. Exit"<<endl;
-        cout << "Enter your choice: "<<endl;
-        cin >> choice;
+    if(choice == 1) {
+        string course;
+        cout << "Enter course name: ";
+        cin >> course;
 
-        if(choice == 1) {
-            section.enrollStudent(id);
+        bool completed[5] = {false};
+
+        for(int i=0;i<students[index].getCompletedCount();i++) {
+            string c = students[index].getCompletedCourse(i);
+            if(c == "PF") completed[0] = true;
+            else if(c == "OOP") completed[1] = true;
+            else if(c == "DSA") completed[2] = true;
+            else if(c == "AI") completed[3] = true;
+            else if(c == "ALG") completed[4] = true;
         }
-        else if(choice == 2) {
-            section.dropStudent(id);
-        }
-        else if(choice == 3) {
-            students[index].printCompletedCourses();
-        }
-        else if(choice == 0){            return;
-        }
 
+        if(graph.canTakeCourse(course, completed)) {
 
+            if(section.enrollStudent(id)) {
+                cout << "Course registered successfully."<<endl;
+            }
+            else {
+                cout << "Section full. Added to waitlist."<<endl;
+            }
+
+        } else {
+            cout << " Cannot register. Prerequisite not fulfilled."<<endl;
+        }
+    }
+
+    else if(choice == 2) {
+        section.dropStudent(id);
+    }
 }
