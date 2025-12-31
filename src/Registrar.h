@@ -1,22 +1,19 @@
 #ifndef REGISTRAR_H
 #define REGISTRAR_H
 
-#include <iostream>
 #include "Student.h"
 #include "SectionManager.h"
-
-using namespace std;
+#include "CourseGraph.h"
 
 class Registrar {
 private:
-    Student students[5];
-    int studentCount;
+    Student students[3];
     Section section;
+    CourseGraph graph;
 
 public:
     Registrar();
-    int findStudent(int id);
-    void menu();
+    void studentMenu();
 };
 
 #endif
