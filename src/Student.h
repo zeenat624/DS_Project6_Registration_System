@@ -24,7 +24,8 @@ public:
 
     void addCompletedCourse(string course);
     void printCompletedCourses();
+    string getCompletedCourse(int index);
+    int getCompletedCount();
 };
 
 #endif
-
