@@ -28,7 +28,12 @@ using namespace std;
             completedCourses[completedCount++] = course;
         }
     }
-
+    string Student::getCompletedCourse(int index){
+       return completedCourses[index];
+    }
+    int Student::getCompletedCount(){
+       return completedCount;
+    }
     void Student::printCompletedCourses() {
         cout << "Completed Courses for " << name << ": ";
         if(completedCount == 0) {
@@ -40,5 +45,4 @@ using namespace std;
         }
         cout << endl;
     }
-
 
