@@ -10,7 +10,7 @@ int main() {
     Registrar registrar;
 
 
-    registrar.menu();
+    registrar.studentMenu();
 
     cout << "Thank you for using the registration system!" << endl;
     return 0;
