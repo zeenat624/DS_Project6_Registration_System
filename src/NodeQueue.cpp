@@ -8,7 +8,7 @@ NodeBasedQueue::NodeBasedQueue() {
 
 bool NodeBasedQueue::isEmpty() {
     if(front == nullptr){
-       return true;	
+       return true;
 	}
 	return false;
 }
