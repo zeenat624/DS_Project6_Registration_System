@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Registrar::Registrar() : section(2) {
+Registrar::Registrar() : section(5){
     students[0] = Student(1023, "Zeenat");
     students[1] = Student(1024, "Kashaf");
     students[2] = Student(1025, "Meryam");
@@ -44,9 +44,10 @@ void Registrar::studentMenu() {
 
         string completed[5];
         int completedCount = students[index].getCompletedCount();
-        for(int i=0;i<completedCount;i++)
-        completed[i] = students[index].getCompletedCourse(i);
-
+        for(int i=0;i<completedCount;i++){
+            completed[i] = students[index].getCompletedCourse(i);
+        }
+        
         int courseIdx = graph.getCourseIndex(course);
         if(courseIdx == -1) {
                 cout << "Course not found." << endl;
