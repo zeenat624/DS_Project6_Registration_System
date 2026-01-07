@@ -10,7 +10,7 @@ Registrar::Registrar() : section(2) {
     students[0].addCompletedCourse("PF");
     students[0].addCompletedCourse("OOP");
     students[1].addCompletedCourse("PF");
-    students[1].addCompletedCourse("PF");
+    students[2].addCompletedCourse("PF");
 }
 
 void Registrar::studentMenu() {
@@ -42,18 +42,17 @@ void Registrar::studentMenu() {
         cout << "Enter course name: ";
         cin >> course;
 
-        bool completed[5] = {false};
+        string completed[5];
+        int completedCount = students[index].getCompletedCount();
+        for(int i=0;i<completedCount;i++)
+        completed[i] = students[index].getCompletedCourse(i);
 
-        for(int i=0;i<students[index].getCompletedCount();i++) {
-            string c = students[index].getCompletedCourse(i);
-            if(c == "PF") completed[0] = true;
-            else if(c == "OOP") completed[1] = true;
-            else if(c == "DSA") completed[2] = true;
-            else if(c == "AI") completed[3] = true;
-            else if(c == "ALG") completed[4] = true;
-        }
+        int courseIdx = graph.getCourseIndex(course);
+        if(courseIdx == -1) {
+                cout << "Course not found." << endl;
+            }
 
-        if(graph.canTakeCourse(course, completed)) {
+        if(graph.canTakeCourseDFS(courseIdx, completed, completedCount)) {
 
             if(section.enrollStudent(id)) {
                 cout << "Course registered successfully."<<endl;
