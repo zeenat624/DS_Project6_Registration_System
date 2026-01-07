@@ -5,7 +5,7 @@ using namespace std;
 CourseGraph::CourseGraph() {
     size = 5;
 
-    courses[0] = "PSPF";
+    courses[0] = "PF";
     courses[1] = "OOP";
     courses[2] = "DSA";
     courses[3] = "AI";
@@ -33,17 +33,34 @@ int CourseGraph::getCourseIndex(string course) {
     return -1;
 }
 
-bool CourseGraph::canTakeCourse(string course, bool completed[5]) {
-    int idx = getCourseIndex(course);
-    if(idx == -1){
-        return false;
-    }
+bool CourseGraph::canTakeCourseDFS(int courseIdx, string completed[], int completedCount) {
+    int stack[10];
+    int top = -1;
 
-    for(int i=0;i<size;i++) {
-        if(Adj[i][idx] == 1 && completed[i] == false) {
-            return false;
+    stack[++top] = courseIdx;
+
+    while(top >= 0) {
+        int curr = stack[top--];
+
+        for(int i=0; i<size; i++) {
+            if(Adj[i][curr] == 1) {
+                bool done = false;
+                for(int j=0; j<completedCount; j++) {
+                    if(completed[j] == courses[i]) {
+                        done = true;
+                        break;
+                    }
+                }
+
+                if(done == false ) {
+                return false;
+                }
+
+                stack[++top] = i;
+            }
         }
     }
+
     return true;
 }
 
@@ -64,6 +81,9 @@ void CourseGraph::printDirectPrerequisites(string course) {
         }
     }
 
-    if(found == false) cout << "None";
+    if(found == false){
+       cout << "None";
+    }
+
     cout << endl;
 }
