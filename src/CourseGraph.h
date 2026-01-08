@@ -15,7 +15,7 @@ public:
 
     int getCourseIndex(string course);
 
-    bool canTakeCourse(string course, bool completed[5]);
+    bool canTakeCourseDFS(int courseIdx, string completed[], int completedCount);
 
     void printDirectPrerequisites(string course);
 };
